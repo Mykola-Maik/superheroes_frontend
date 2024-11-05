@@ -18,14 +18,16 @@ declare module "@mui/material/Typography" {
 declare module "@mui/material/styles/createPalette" {
   interface PaletteOptions {
     custom?: {
+      dark?: string;
+      yellow?: string;
       red?: string;
-      blue?: string;
     };
   }
   interface Palette {
     custom: {
+      dark: string;
+      yellow: string;
       red: string;
-      blue: string;
     };
   }
 }

@@ -39,7 +39,7 @@ export const Header = () => {
   return (
     <AppBar
       position="static"
-      sx={{ backgroundColor: theme.palette.custom.red }}
+      sx={{ backgroundColor: theme.palette.custom.dark }}
     >
       <Container maxWidth="xl">
         <Toolbar disableGutters sx={{ justifyContent: "space-between" }}>
@@ -63,7 +63,7 @@ export const Header = () => {
               onClose={handleCloseNavMenu}
               PaperProps={{
                 sx: {
-                  backgroundColor: theme.palette.custom.red,
+                  backgroundColor: theme.palette.custom.dark,
                   py: 4,
                 },
               }}
@@ -88,7 +88,7 @@ export const Header = () => {
                       color: theme.palette.common.white,
                       transition: "color 0.3s ease",
                       "&:hover": {
-                        color: "primary.main",
+                        color: theme.palette.custom.yellow,
                         transition: "color 0.3s ease",
                       },
                     }}
@@ -103,7 +103,7 @@ export const Header = () => {
                         color: theme.palette.common.white,
                         transition: "color 0.3s ease",
                         "&:hover": {
-                          color: theme.palette.primary.main,
+                          color: theme.palette.custom.yellow,
                           transition: "color 0.3s ease",
                         },
                       }}
@@ -141,7 +141,7 @@ export const Header = () => {
                   color: theme.palette.common.white,
                   transition: "color 0.3s ease",
                   "&:hover": {
-                    color: theme.palette.primary.main,
+                    color: theme.palette.custom.yellow,
                     transition: "color 0.3s ease",
                   },
                 }}
@@ -154,7 +154,7 @@ export const Header = () => {
                     color: theme.palette.common.white,
                     transition: "color 0.3s ease",
                     "&:hover": {
-                      color: theme.palette.primary.main,
+                      color: theme.palette.custom.yellow,
                       transition: "color 0.3s ease",
                     },
                   }}

@@ -9,7 +9,7 @@ export const Footer = () => {
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        backgroundColor: theme.palette.custom.red,
+        backgroundColor: theme.palette.custom.dark,
         minHeight: "100px",
         color: theme.palette.common.white,
         backgroundImage: `url('/src/assets/images/footer_bg.jpg')`,

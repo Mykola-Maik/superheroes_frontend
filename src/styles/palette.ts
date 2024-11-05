@@ -30,7 +30,8 @@ export const palette: PaletteOptions = {
     paper: colors.mainWhite,
   },
   custom: {
+    dark: colors.customDark,
+    yellow: colors.customYellow,
     red: colors.customRed,
-    blue: colors.customBlue,
   },
 };

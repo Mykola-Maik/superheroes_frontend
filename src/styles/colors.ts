@@ -5,8 +5,9 @@ export const colors = {
   mainBlue: "#5865F2",
   mainError: "#F72F53",
 
-  customRed: "#1C1C1C",
-  customBlue: "#F3D403",
+  customDark: "#1C1C1C",
+  customYellow: "#F3D403",
+  customRed: "#E62429",
 
   buttonActive: "#5865F2",
   buttonDisabled: "#AAB9CE",

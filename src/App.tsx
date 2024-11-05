@@ -22,7 +22,7 @@ export default function App() {
           flexDirection: "column",
           flexGrow: 1,
           padding: "10px 15px",
-          backgroundColor: theme.palette.custom.blue,
+          backgroundColor: theme.palette.custom.yellow,
         }}
       >
         <Outlet />
