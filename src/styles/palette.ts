@@ -29,4 +29,8 @@ export const palette: PaletteOptions = {
     default: colors.mainBackground,
     paper: colors.mainWhite,
   },
+  custom: {
+    red: colors.customRed,
+    blue: colors.customBlue,
+  },
 };
