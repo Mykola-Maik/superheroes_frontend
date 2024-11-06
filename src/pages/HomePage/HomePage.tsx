@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "@/hooks";
 import { getSuperheroesRequest } from "@/redux/slices/superheroSlice/superheroSlice";
+import theme from "@/styles/muiTheme";
 
 const itemsPerPage = 5;
 
@@ -47,19 +48,19 @@ export default function HomePage() {
         spacing={2}
         sx={{
           display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
+          justifyContent: "flex-end",
           mb: 6,
         }}
       >
-        <Grid
-          size={{ xs: 12, sm: 12, md: 2, lg: 2 }}
-          sx={{ display: "flex", justifyContent: "flex-end", width: "100%" }}
-        >
+        <Grid size={{ xs: 12, sm: 12, md: 2, lg: 2 }}>
           <Button
             variant="contained"
             onClick={createSuperheroHandler}
-            sx={{ textTransform: "none", width: "100%" }}
+            sx={{
+              textTransform: "none",
+              width: "100%",
+              backgroundColor: theme.palette.custom.red,
+            }}
           >
             + Add
           </Button>
