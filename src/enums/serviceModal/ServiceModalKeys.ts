@@ -1,5 +1,5 @@
 export enum ServiceModalName {
-  AddMovie = "ADD_MOVIE",
-  EditMovie = "EDIT_MOVIE",
-  AddMovieLeave = "ADD_MOVIE_LEAVE",
+  AddSuperhero = "ADD_SUPERHERO",
+  EditSuperhero = "EDIT_SUPERHERO",
+  AddSuperheroLeave = "ADD_SUPERHERO_LEAVE",
 }

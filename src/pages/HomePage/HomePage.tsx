@@ -6,6 +6,8 @@ import { useSearchParams } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "@/hooks";
 import { getSuperheroesRequest } from "@/redux/slices/superheroSlice/superheroSlice";
 import theme from "@/styles/muiTheme";
+import { addServiceModal } from "@/redux/slices/serviceModalSlice";
+import { ServiceModalName } from "@/enums";
 
 const itemsPerPage = 5;
 
@@ -29,7 +31,13 @@ export default function HomePage() {
     setSearchParams(query);
   }, [currentPage, setSearchParams]);
 
-  const createSuperheroHandler = () => {};
+  const createSuperheroHandler = () => {
+    dispatch(
+      addServiceModal({
+        type: ServiceModalName.AddSuperhero,
+      })
+    );
+  };
 
   const handlePageChange = (
     _event: React.ChangeEvent<unknown>,
@@ -92,7 +100,7 @@ export default function HomePage() {
               minHeight: "200px",
             }}
           >
-            <p>No movies found</p>
+            <p>No superheroes found</p>
           </Grid>
         )}
       </Grid>
