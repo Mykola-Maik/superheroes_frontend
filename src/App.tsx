@@ -1,5 +1,7 @@
 import { Outlet } from "react-router-dom";
 import { Box } from "@mui/material";
+import { Footer, Header } from "@/components";
+import theme from "@/styles/muiTheme";
 
 export default function App() {
   return (
@@ -10,6 +12,7 @@ export default function App() {
         flexDirection: "column",
       }}
     >
+      <Header />
       <Box
         component="main"
         sx={{
@@ -19,11 +22,12 @@ export default function App() {
           flexDirection: "column",
           flexGrow: 1,
           padding: "10px 15px",
-          backgroundColor: "rgba(80, 95, 111, 1)",
+          backgroundColor: theme.palette.custom.yellow,
         }}
       >
         <Outlet />
       </Box>
+      <Footer />
     </Box>
   );
 }
