@@ -13,7 +13,9 @@ import {
   createSuperheroRequest,
   updateSuperheroRequest,
 } from "@/redux/slices/superheroSlice/superheroSlice";
-import { Superhero } from "@/types";
+import { SuperheroFormData } from "@/types";
+import theme from "@/styles/muiTheme";
+import { AddSuperheroFormView } from "./AddSuperheroFormView";
 
 type FormData = yup.InferType<ReturnType<typeof validationSchema>>;
 
@@ -33,7 +35,7 @@ export const AddSuperheroForm = ({ superheroId }: AddSuperheroFormProps) => {
   const defaultValues: FormData = {
     nickname: "",
     origin_description: "",
-    superpowers: "",
+    superpowers: [],
     real_name: "",
     catch_phrase: "",
     images: [],
@@ -80,19 +82,26 @@ export const AddSuperheroForm = ({ superheroId }: AddSuperheroFormProps) => {
   };
 
   const handleFormSubmit: SubmitHandler<FormData> = (
-    superhero: Omit<Superhero, "id">
+    superhero: SuperheroFormData
   ) => {
+    const formatedData = {
+      ...superhero,
+      superpowers: superhero.superpowers.join(","),
+    };
+
     if (superheroId) {
-      dispatch(updateSuperheroRequest({ superheroId, superhero }));
+      dispatch(
+        updateSuperheroRequest({ superheroId, superhero: formatedData })
+      );
     } else {
-      dispatch(createSuperheroRequest(superhero));
+      dispatch(createSuperheroRequest(formatedData));
     }
   };
 
   return (
     <Box sx={{ backgroundColor: "transparent", width: "100%" }}>
       <Box sx={{ width: "100%" }}>
-        {/* Add form elements */}
+        <AddSuperheroFormView control={control} />
 
         <Box
           sx={{ display: "flex", justifyContent: "flex-start", gap: "24px" }}
@@ -108,9 +117,15 @@ export const AddSuperheroForm = ({ superheroId }: AddSuperheroFormProps) => {
               textTransform: "capitalize",
               borderRadius: "8px",
               padding: "10px 18px",
-              borderColor: "palette.primary.main",
+              borderColor: theme.palette.custom.red,
+              color: theme.palette.custom.red,
+
+              "&:hover": {
+                backgroundColor: "transparent",
+                boxShadow: `0px 4px 8px rgba(230, 36, 41, 0.5)`,
+              },
               "&:disabled": {
-                borderColor: "action.disabled",
+                borderColor: theme.palette.action.disabled,
               },
             }}
           >
@@ -119,7 +134,6 @@ export const AddSuperheroForm = ({ superheroId }: AddSuperheroFormProps) => {
           <Button
             type="submit"
             variant="contained"
-            color="primary"
             onClick={handleSubmit(handleFormSubmit)}
             disabled={!isValid || !isDirty}
             sx={{
@@ -127,12 +141,15 @@ export const AddSuperheroForm = ({ superheroId }: AddSuperheroFormProps) => {
               textTransform: "none",
               borderRadius: "8px",
               padding: "10px 18px",
+              backgroundColor: theme.palette.custom.yellow,
+              transition: "box-shadow 0.3s ease",
               "&:hover": {
-                backgroundColor: "custom.buttonContainedHover",
+                boxShadow: `4px 4px 24px rgba(243, 212, 3, 0.5)`,
+                transition: "box-shadow 0.3s ease",
               },
               "&:disabled": {
-                color: "common.white",
-                backgroundColor: "action.disabled",
+                color: theme.palette.common.white,
+                backgroundColor: theme.palette.action.disabled,
               },
             }}
           >

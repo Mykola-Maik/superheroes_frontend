@@ -30,10 +30,16 @@ export const validationSchema = () => {
       .max(200, "Invalid catch phrase maximum 200 chars"),
 
     superpowers: yup
-      .string()
+      .array()
       .required("This field is required")
-      .min(2, "Invalid superpower minimum 2 chars")
-      .max(50, "Invalid superpower maximum 50 chars"),
+      .of(
+        yup
+          .string()
+          .required("Superpower is required")
+          .min(2, "Invalid superpower minimum 2 chars")
+          .max(100, "Invalid superpower maximum 100 chars")
+      )
+      .min(1, "At least one image is required"),
 
     images: yup
       .array()
@@ -44,6 +50,7 @@ export const validationSchema = () => {
           .required("Image url is required")
           .min(2, "Invalid image url minimum 2 chars")
           .max(500, "Invalid image url maximum 500 chars")
+          .url("Invalid URL format")
       )
       .min(1, "At least one image is required"),
   });
