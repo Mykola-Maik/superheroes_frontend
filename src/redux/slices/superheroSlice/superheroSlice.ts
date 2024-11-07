@@ -22,42 +22,28 @@ export const superheroSlice = createSlice({
       state.errors = action.payload;
     },
     createSuperheroRequest: (
-      state,
+      _state,
       _action: PayloadAction<Omit<Superhero, "id">>
-    ) => {
-      state.isLoading = true;
-    },
-    createSuperheroSuccess: (state) => {
-      state.isLoading = false;
-    },
+    ) => {},
+    createSuperheroSuccess: (_state) => {},
     createSuperheroFailure: (state, action: PayloadAction<string>) => {
-      state.isLoading = false;
       state.errors = action.payload;
     },
     updateSuperheroRequest: (
-      state,
+      _state,
       _action: PayloadAction<{
         superheroId: string;
         superhero: Partial<Superhero>;
       }>
-    ) => {
-      state.isLoading = true;
-    },
-    updateSuperheroSuccess: (state) => {
-      state.isLoading = false;
-    },
+    ) => {},
+    updateSuperheroSuccess: (_state) => {},
     updateSuperheroFailure: (state, action: PayloadAction<string>) => {
       state.isLoading = false;
       state.errors = action.payload;
     },
-    deleteSuperheroRequest: (state, _action: PayloadAction<string>) => {
-      state.isLoading = true;
-    },
-    deleteSuperheroSuccess: (state) => {
-      state.isLoading = false;
-    },
+    deleteSuperheroRequest: (_state, _action: PayloadAction<string>) => {},
+    deleteSuperheroSuccess: (_state) => {},
     deleteSuperheroFailure: (state, action: PayloadAction<string>) => {
-      state.isLoading = false;
       state.errors = action.payload;
     },
   },

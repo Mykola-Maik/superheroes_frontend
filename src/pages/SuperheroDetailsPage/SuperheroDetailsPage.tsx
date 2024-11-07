@@ -7,6 +7,7 @@ import { getSuperheroRequest } from "@/redux/slices/currentSuperheroSlice/curren
 import ImageSlider from "@/components/ImageSlider/ImageSlider";
 import { addServiceModal } from "@/redux/slices/serviceModalSlice";
 import { ServiceModalName } from "@/enums";
+import { Loader } from "@/components";
 
 export default function SuperheroDetailsPage() {
   const { id } = useParams();
@@ -47,18 +48,7 @@ export default function SuperheroDetailsPage() {
   };
 
   if (isLoading) {
-    return (
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          height: "100vh",
-        }}
-      >
-        Loading...
-      </Box>
-    );
+    return <Loader />;
   }
 
   return (

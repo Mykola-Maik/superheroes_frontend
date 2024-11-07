@@ -16,7 +16,6 @@ import {
   getSuperheroesSuccess,
   updateSuperheroFailure,
   updateSuperheroRequest,
-  updateSuperheroSuccess,
 } from "@/redux/slices/superheroSlice/superheroSlice";
 import { removeServiceModal } from "@/redux/slices/serviceModalSlice";
 import { ServiceModalName } from "@/enums";
@@ -108,7 +107,6 @@ function* updateSuperheroSaga({
     );
 
     if (response.status === 200) {
-      yield put(updateSuperheroSuccess());
       yield put(removeServiceModal(ServiceModalName.EditSuperhero));
       yield put(
         getSuperheroesRequest({
