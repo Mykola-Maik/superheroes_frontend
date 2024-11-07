@@ -1,6 +1,7 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { initialState } from "./initialState";
-import { ServerObject, Superhero } from "@/types";
+import type { ServerObject, Superhero } from "@/types";
+import type { Id } from "react-toastify";
 
 export const superheroSlice = createSlice({
   name: "superheroSlice",
@@ -23,7 +24,10 @@ export const superheroSlice = createSlice({
     },
     createSuperheroRequest: (
       _state,
-      _action: PayloadAction<Omit<Superhero, "id">>
+      _action: PayloadAction<{
+        superheroData: Omit<Superhero, "id">;
+        toastId: Id;
+      }>
     ) => {},
     createSuperheroSuccess: (_state) => {},
     createSuperheroFailure: (state, action: PayloadAction<string>) => {
@@ -34,6 +38,7 @@ export const superheroSlice = createSlice({
       _action: PayloadAction<{
         superheroId: string;
         superhero: Partial<Superhero>;
+        toastId: Id;
       }>
     ) => {},
     updateSuperheroSuccess: (_state) => {},
@@ -41,7 +46,10 @@ export const superheroSlice = createSlice({
       state.isLoading = false;
       state.errors = action.payload;
     },
-    deleteSuperheroRequest: (_state, _action: PayloadAction<string>) => {},
+    deleteSuperheroRequest: (
+      _state,
+      _action: PayloadAction<{ superheroId: string; toastId: Id }>
+    ) => {},
     deleteSuperheroSuccess: (_state) => {},
     deleteSuperheroFailure: (state, action: PayloadAction<string>) => {
       state.errors = action.payload;
