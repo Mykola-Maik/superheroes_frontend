@@ -7,3 +7,9 @@ export interface Superhero {
   catch_phrase: string;
   images: string[];
 }
+
+export interface SuperheroFormData
+  extends Omit<Superhero, "id" | "superpowers" | "images"> {
+  superpowers: string[];
+  images: { url: string }[];
+}

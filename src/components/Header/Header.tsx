@@ -15,7 +15,7 @@ import { useEffect, useState } from "react";
 import { ROUTES } from "@/enums/routes/Routes";
 import { Link } from "react-router-dom";
 import theme from "@/styles/muiTheme";
-import { JSNinjasLogo } from "@/assets";
+import { JSNinjasLogo } from "@/assets/icons";
 
 export const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);

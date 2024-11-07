@@ -1,6 +1,14 @@
-import React, { useEffect } from "react";
+import React, { Suspense, useEffect } from "react";
 import { ServiceModalName } from "@/enums";
 import { selectServiceModals } from "@/redux/selectors/serviceModalSelector";
+
+const AddSuperhero = React.lazy(
+  () => import("@/components/modals/AddSuperheroModal/AddSuperheroModal")
+);
+
+const EditSuperhero = React.lazy(
+  () => import("@/components/modals/AddSuperheroModal/AddSuperheroModal")
+);
 
 const ServiceModalProvider = ({ children }: { children: React.ReactNode }) => {
   const modalKeys = Object.keys(selectServiceModals());
@@ -17,6 +25,20 @@ const ServiceModalProvider = ({ children }: { children: React.ReactNode }) => {
 
   const getModalComponent = (key: ServiceModalName) => {
     switch (key) {
+      case ServiceModalName.AddSuperhero:
+        return (
+          <Suspense fallback={<div>Loading...</div>}>
+            <AddSuperhero />
+          </Suspense>
+        );
+
+      case ServiceModalName.EditSuperhero:
+        return (
+          <Suspense fallback={<div>Loading...</div>}>
+            <EditSuperhero />
+          </Suspense>
+        );
+
       default:
         return null;
     }
