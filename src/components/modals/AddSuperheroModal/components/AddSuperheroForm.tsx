@@ -12,7 +12,7 @@ import {
   createSuperheroRequest,
   updateSuperheroRequest,
 } from "@/redux/slices/superheroSlice/superheroSlice";
-import { SuperheroFormData } from "@/types";
+import type { SuperheroFormData } from "@/types";
 import theme from "@/styles/muiTheme";
 import { AddSuperheroFormView } from "./AddSuperheroFormView";
 import { toast } from "react-toastify";

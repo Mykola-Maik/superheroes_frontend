@@ -1,4 +1,4 @@
-import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import { type PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { initialState } from "./initialState";
 import type { ServerObject, Superhero } from "@/types";
 import type { Id } from "react-toastify";

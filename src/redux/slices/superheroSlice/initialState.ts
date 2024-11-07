@@ -1,4 +1,4 @@
-import { SuperheroSliceState } from "@/types";
+import type { SuperheroSliceState } from "@/types";
 
 export const initialState: SuperheroSliceState = {
   superheroes: [],

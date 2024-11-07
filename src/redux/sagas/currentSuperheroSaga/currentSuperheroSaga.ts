@@ -4,9 +4,9 @@ import {
   getSuperheroSuccess,
 } from "@/redux/slices/currentSuperheroSlice/currentSuperheroSlice";
 import HttpService from "@/services/HttpService/HttpService";
-import { Superhero } from "@/types";
-import { PayloadAction } from "@reduxjs/toolkit";
-import { AxiosError, AxiosResponse } from "axios";
+import type { Superhero } from "@/types";
+import type { PayloadAction } from "@reduxjs/toolkit";
+import { AxiosError, type AxiosResponse } from "axios";
 import { call, put, takeLatest } from "redux-saga/effects";
 
 function* getCurrentSuperheroSaga({ payload }: PayloadAction<string>) {

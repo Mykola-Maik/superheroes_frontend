@@ -1,4 +1,4 @@
-import { CurrentSuperheroState } from "@/types";
+import type { CurrentSuperheroState } from "@/types";
 
 export const initialState: CurrentSuperheroState = {
   superhero: null,

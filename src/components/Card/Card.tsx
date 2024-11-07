@@ -1,7 +1,7 @@
 import { Box, Typography } from "@mui/material";
 import theme from "@/styles/muiTheme";
 import { Link } from "react-router-dom";
-import { Superhero } from "@/types";
+import type { Superhero } from "@/types";
 
 interface CardProps {
   superhero: Superhero;

@@ -1,6 +1,6 @@
-import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import { type PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { initialState } from "./initialState";
-import { Superhero } from "@/types";
+import type { Superhero } from "@/types";
 
 export const currentSuperheroSlice = createSlice({
   name: "currentSuperheroSlice",

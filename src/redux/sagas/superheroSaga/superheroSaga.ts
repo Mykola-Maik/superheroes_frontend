@@ -3,7 +3,7 @@ import HttpService from "@/services/HttpService/HttpService";
 import { AxiosError } from "axios";
 import type { PayloadAction } from "@reduxjs/toolkit";
 import type { AxiosResponse } from "axios";
-import { ServerObject, Superhero } from "@/types";
+import type { ServerObject, Superhero } from "@/types";
 import {
   createSuperheroFailure,
   createSuperheroRequest,

@@ -1,4 +1,4 @@
-import { Superhero } from "@/types";
+import type { Superhero } from "@/types";
 
 export interface CurrentSuperheroState {
   superhero: Superhero | null;
