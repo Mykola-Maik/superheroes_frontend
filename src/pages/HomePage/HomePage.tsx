@@ -8,8 +8,7 @@ import { getSuperheroesRequest } from "@/redux/slices/superheroSlice/superheroSl
 import theme from "@/styles/muiTheme";
 import { addServiceModal } from "@/redux/slices/serviceModalSlice";
 import { ServiceModalName } from "@/enums";
-
-const itemsPerPage = 5;
+import { itemsPerPage } from "@/constants";
 
 export default function HomePage() {
   const dispatch = useAppDispatch();
@@ -120,6 +119,20 @@ export default function HomePage() {
             variant="outlined"
             shape="rounded"
             color="primary"
+            sx={{
+              "& .MuiPaginationItem-page": {
+                fontWeight: 500,
+                borderColor: theme.palette.custom.red,
+                color: theme.palette.custom.red,
+              },
+              "& .Mui-selected": {
+                backgroundColor: theme.palette.custom.red,
+                color: theme.palette.common.white,
+                "&:hover": {
+                  backgroundColor: theme.palette.custom.red,
+                },
+              },
+            }}
           />
         </Grid>
       </Grid>
