@@ -14,7 +14,7 @@ const DeleteSuperhero = React.lazy(
   () => import("@/components/modals/DeleteSuperheroModal/DeleteSuperheroModal")
 );
 
-const ServiceModalProvider = ({ children }: { children: React.ReactNode }) => {
+const ServiceModalProvider = ({ children }: { children?: React.ReactNode }) => {
   const modalKeys = Object.keys(selectServiceModals());
 
   useEffect(() => {

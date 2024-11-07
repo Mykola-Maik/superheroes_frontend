@@ -10,6 +10,7 @@ import { selectServiceModalPayload } from "@/redux/selectors/serviceModalSelecto
 
 const DeleteSuperheroModal = () => {
   const dispatch = useAppDispatch();
+  
 
   const payload = selectServiceModalPayload(ServiceModalName.DeleteSuperhero);
   const { superheroId } = payload || {};

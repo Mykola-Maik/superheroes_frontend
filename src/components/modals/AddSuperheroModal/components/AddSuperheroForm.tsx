@@ -4,7 +4,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { removeServiceModal } from "@/redux/slices/serviceModalSlice/serviceModalSlice";
 import { ServiceModalName } from "@/enums";
 import { validationSchema } from "./validationScheme";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useAppDispatch, useAppSelector } from "@/hooks";
 import type { SubmitHandler } from "react-hook-form";
 import { getSuperheroRequest } from "@/redux/slices/currentSuperheroSlice/currentSuperheroSlice";
@@ -47,6 +47,8 @@ export const AddSuperheroForm = ({ superheroId }: AddSuperheroFormProps) => {
       mode: "onChange",
     });
 
+  const initialValuesRef = useRef<FormData | null>(null);
+
   useEffect(() => {
     reset(defaultValues);
     if (superheroId) {
@@ -58,13 +60,24 @@ export const AddSuperheroForm = ({ superheroId }: AddSuperheroFormProps) => {
     if (superheroId && superheroData) {
       (Object.keys(defaultValues) as Array<keyof FormData>).forEach((key) => {
         const value = superheroData[key as keyof typeof superheroData];
-        if (key in superheroData) {
+        if (key === "superpowers" && typeof value === "string") {
+          setValue(key, value.split(","));
+        } else if (key === "images") {
+          setValue(
+            key,
+            Array.isArray(value) && value.length > 0
+              ? value.map((url) => ({ url }))
+              : [{ url: "" }]
+          );
+        } else {
           setValue(
             key,
             typeof value === "number" ? String(value) : (value ?? null)
           );
         }
       });
+
+      initialValuesRef.current = getValues();
     }
   }, [superheroId, superheroData, setValue, getValues]);
 

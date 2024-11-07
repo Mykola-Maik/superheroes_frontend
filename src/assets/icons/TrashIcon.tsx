@@ -5,16 +5,7 @@ type TrashIconProps = WithSx<{}>;
 
 const TrashIcon = (props: TrashIconProps) => {
   return (
-    <Box
-      sx={{
-        // display: "block",
-        // justifyContent: "center",
-        // alignItems: "center",
-        // width: "20px",
-        // height: "20px",
-      }}
-      {...props}
-    >
+    <Box {...props}>
       <svg
         width="20"
         height="21"

@@ -35,7 +35,16 @@ export default function SuperheroDetailsPage() {
     );
   };
 
-  const handleEditSuperhero = () => {};
+  const handleEditSuperhero = () => {
+    dispatch(
+      addServiceModal({
+        type: ServiceModalName.EditSuperhero,
+        payload: {
+          superheroId: id,
+        },
+      })
+    );
+  };
 
   if (isLoading) {
     return (
