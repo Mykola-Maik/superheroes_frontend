@@ -52,7 +52,7 @@ export const InputText = forwardRef<HTMLInputElement, InputTextProps>(
     };
 
     return (
-      <Box>
+      <Box sx={{ width: "100%" }}>
         <Box
           sx={{
             display: "flex",

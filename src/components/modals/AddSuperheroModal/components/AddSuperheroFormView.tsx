@@ -1,7 +1,15 @@
-import { Box, Stack, type SxProps } from "@mui/material";
+import { Box, IconButton, Stack, type SxProps } from "@mui/material";
 import type { SuperheroFormData } from "@/types";
-import { useFormState, type Control } from "react-hook-form";
+import {
+  useFormState,
+  type Control,
+  useFieldArray,
+  Path,
+} from "react-hook-form";
 import { FormAutocompleteDropdown, FormInputText } from "@/components";
+import { TrashIcon } from "@/assets/icons";
+import theme from "@/styles/muiTheme";
+import AddIcon from "@mui/icons-material/Add";
 
 interface AddSuperheroFormViewProps {
   control: Control<SuperheroFormData>;
@@ -12,6 +20,14 @@ export const AddSuperheroFormView = ({
   control,
 }: AddSuperheroFormViewProps) => {
   const { errors } = useFormState({ control });
+
+  const { fields, append, remove } = useFieldArray({
+    control,
+    name: "images",
+  });
+
+  const isFirstField = fields.length === 1;
+  const isMaxFields = fields.length >= 10;
 
   return (
     <Stack
@@ -83,17 +99,93 @@ export const AddSuperheroFormView = ({
         sx={{ width: "100%" }}
       />
 
-      <FormAutocompleteDropdown
-        name="images"
-        control={control}
-        label="Images"
-        placeholder="Add links to superhero images"
-        required={true}
-        options={[]}
-        error={errors.images?.message}
-        helperText="Add image links for this superhero. Find a photo online (e.g., Google), copy the image URL, paste it here, and press Enter to confirm."
-        sx={{ width: "100%" }}
-      />
+      <Box
+        sx={{
+          position: "relative",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "flex-start",
+        }}
+      >
+        {fields.map((item, index) => (
+          <Box
+            key={item.id}
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              gap: "16px",
+              mb: 2,
+              position: "relative",
+              width: "95%",
+            }}
+          >
+            <FormInputText
+              name={`images[${index}].url` as Path<SuperheroFormData>}
+              control={control}
+              label={`Image url ${index + 1}`}
+              placeholder="Enter image URL"
+              required={true}
+              helperText="Add image links for this superhero. Find a photo online (e.g., Google), copy the image URL, paste it here, and press Enter to confirm."
+              sx={{ width: "100%" }}
+            />
+            <IconButton
+              onClick={() => remove(index)}
+              disabled={isFirstField}
+              sx={{
+                position: "absolute",
+                right: "8px",
+                top: "44px",
+                transform: "translateY(-50%)",
+                width: "32px",
+                height: "32px",
+                "&:hover": {
+                  boxShadow: 2,
+                },
+                "&:disabled": {
+                  opacity: 0.3,
+                },
+              }}
+            >
+              <TrashIcon
+                sx={{
+                  color: theme.palette.custom.red,
+                  borderRadius: "50%",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              />
+            </IconButton>
+
+            {index === fields.length - 1 && (
+              <IconButton
+                onClick={() => append({ url: "" })}
+                disabled={isMaxFields || !!errors.images?.[index]?.url}
+                sx={{
+                  position: "absolute",
+                  top: "28px",
+                  right: "-35px",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  width: "32px",
+                  height: "32px",
+                  color: theme.palette.common.white,
+
+                  "&:hover": {
+                    boxShadow: 2,
+                  },
+                  "&:disabled": {
+                    opacity: 0.3,
+                  },
+                }}
+              >
+                <AddIcon />
+              </IconButton>
+            )}
+          </Box>
+        ))}
+      </Box>
     </Stack>
   );
 };

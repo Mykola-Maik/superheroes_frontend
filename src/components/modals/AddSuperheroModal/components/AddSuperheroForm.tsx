@@ -1,6 +1,5 @@
 import { Box, Button } from "@mui/material";
 import { useForm, useFormState } from "react-hook-form";
-import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { removeServiceModal } from "@/redux/slices/serviceModalSlice/serviceModalSlice";
 import { ServiceModalName } from "@/enums";
@@ -17,7 +16,7 @@ import { SuperheroFormData } from "@/types";
 import theme from "@/styles/muiTheme";
 import { AddSuperheroFormView } from "./AddSuperheroFormView";
 
-type FormData = yup.InferType<ReturnType<typeof validationSchema>>;
+type FormData = SuperheroFormData;
 
 interface AddSuperheroFormProps {
   superheroId?: string;
@@ -38,7 +37,7 @@ export const AddSuperheroForm = ({ superheroId }: AddSuperheroFormProps) => {
     superpowers: [],
     real_name: "",
     catch_phrase: "",
-    images: [],
+    images: [{ url: "" }],
   };
 
   const { handleSubmit, control, setValue, getValues, reset } =
@@ -87,6 +86,7 @@ export const AddSuperheroForm = ({ superheroId }: AddSuperheroFormProps) => {
     const formatedData = {
       ...superhero,
       superpowers: superhero.superpowers.join(","),
+      images: superhero.images.map((image) => image.url),
     };
 
     if (superheroId) {

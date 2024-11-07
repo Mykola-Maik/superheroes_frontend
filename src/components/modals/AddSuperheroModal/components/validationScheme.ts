@@ -43,15 +43,12 @@ export const validationSchema = () => {
 
     images: yup
       .array()
-      .required("This field is required")
       .of(
-        yup
-          .string()
-          .required("Image url is required")
-          .min(2, "Invalid image url minimum 2 chars")
-          .max(500, "Invalid image url maximum 500 chars")
-          .url("Invalid URL format")
+        yup.object({
+          url: yup.string().url("Invalid URL").required("URL is required"),
+        })
       )
+      .required("Images are required")
       .min(1, "At least one image is required"),
   });
 };

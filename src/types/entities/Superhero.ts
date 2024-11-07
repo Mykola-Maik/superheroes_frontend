@@ -9,6 +9,7 @@ export interface Superhero {
 }
 
 export interface SuperheroFormData
-  extends Omit<Superhero, "id" | "superpowers"> {
+  extends Omit<Superhero, "id" | "superpowers" | "images"> {
   superpowers: string[];
+  images: { url: string }[];
 }
