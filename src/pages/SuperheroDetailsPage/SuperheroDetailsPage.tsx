@@ -1,10 +1,12 @@
 import { useAppDispatch, useAppSelector } from "@/hooks";
-import { Box, Grid2, Typography } from "@mui/material";
+import { Box, Button, Grid2, Typography } from "@mui/material";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import theme from "@/styles/muiTheme";
 import { getSuperheroRequest } from "@/redux/slices/currentSuperheroSlice/currentSuperheroSlice";
 import ImageSlider from "@/components/ImageSlider/ImageSlider";
+import { addServiceModal } from "@/redux/slices/serviceModalSlice";
+import { ServiceModalName } from "@/enums";
 
 export default function SuperheroDetailsPage() {
   const { id } = useParams();
@@ -21,6 +23,28 @@ export default function SuperheroDetailsPage() {
       dispatch(getSuperheroRequest(id));
     }
   }, [id]);
+
+  const handleDeleteSuperhero = () => {
+    dispatch(
+      addServiceModal({
+        type: ServiceModalName.DeleteSuperhero,
+        payload: {
+          superheroId: id,
+        },
+      })
+    );
+  };
+
+  const handleEditSuperhero = () => {
+    dispatch(
+      addServiceModal({
+        type: ServiceModalName.EditSuperhero,
+        payload: {
+          superheroId: id,
+        },
+      })
+    );
+  };
 
   if (isLoading) {
     return (
@@ -39,12 +63,47 @@ export default function SuperheroDetailsPage() {
 
   return (
     <Box sx={{ display: "flex", flexDirection: "column", flexGrow: 1 }}>
-      <Typography
-        variant="h3"
-        sx={{ color: theme.palette.common.black, mb: 4 }}
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+        }}
       >
-        {superhero?.nickname}
-      </Typography>
+        <Typography
+          variant="h3"
+          sx={{ color: theme.palette.common.black, mb: 4 }}
+        >
+          {superhero?.nickname}
+        </Typography>
+
+        <Box>
+          <Button
+            variant="outlined"
+            onClick={handleEditSuperhero}
+            sx={{
+              minWidth: "150px",
+              mr: 2,
+              borderColor: theme.palette.common.black,
+              color: theme.palette.common.black,
+              textTransform: "none",
+            }}
+          >
+            Edit superhero
+          </Button>
+          <Button
+            variant="contained"
+            onClick={handleDeleteSuperhero}
+            sx={{
+              minWidth: "150px",
+              textTransform: "none",
+              backgroundColor: theme.palette.custom.red,
+            }}
+          >
+            Delete superhero
+          </Button>
+        </Box>
+      </Box>
       <Grid2
         container
         spacing={4}

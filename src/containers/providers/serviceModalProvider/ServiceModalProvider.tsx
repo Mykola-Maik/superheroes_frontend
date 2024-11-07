@@ -10,7 +10,11 @@ const EditSuperhero = React.lazy(
   () => import("@/components/modals/AddSuperheroModal/AddSuperheroModal")
 );
 
-const ServiceModalProvider = ({ children }: { children: React.ReactNode }) => {
+const DeleteSuperhero = React.lazy(
+  () => import("@/components/modals/DeleteSuperheroModal/DeleteSuperheroModal")
+);
+
+const ServiceModalProvider = ({ children }: { children?: React.ReactNode }) => {
   const modalKeys = Object.keys(selectServiceModals());
 
   useEffect(() => {
@@ -36,6 +40,13 @@ const ServiceModalProvider = ({ children }: { children: React.ReactNode }) => {
         return (
           <Suspense fallback={<div>Loading...</div>}>
             <EditSuperhero />
+          </Suspense>
+        );
+
+      case ServiceModalName.DeleteSuperhero:
+        return (
+          <Suspense fallback={<div>Loading...</div>}>
+            <DeleteSuperhero />
           </Suspense>
         );
 

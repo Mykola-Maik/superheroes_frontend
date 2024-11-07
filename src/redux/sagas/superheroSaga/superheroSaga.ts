@@ -20,6 +20,7 @@ import {
 } from "@/redux/slices/superheroSlice/superheroSlice";
 import { removeServiceModal } from "@/redux/slices/serviceModalSlice";
 import { ServiceModalName } from "@/enums";
+import { getSuperheroRequest } from "@/redux/slices/currentSuperheroSlice/currentSuperheroSlice";
 
 function* getSuperheroesSaga({
   payload: { page },
@@ -76,11 +77,14 @@ function* deleteSuperheroSaga({ payload }: PayloadAction<string>) {
 
     if (response.status === 200) {
       yield put(deleteSuperheroSuccess());
+      yield put(removeServiceModal(ServiceModalName.DeleteSuperhero));
       yield put(
         getSuperheroesRequest({
           page: 1,
         })
       );
+
+      window.location.href = "/";
     }
   } catch (error) {
     if (error instanceof AxiosError) {
@@ -111,6 +115,7 @@ function* updateSuperheroSaga({
           page: 1,
         })
       );
+      yield put(getSuperheroRequest(superheroId));
     }
   } catch (error) {
     if (error instanceof AxiosError) {
