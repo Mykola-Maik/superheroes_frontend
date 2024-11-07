@@ -76,11 +76,14 @@ function* deleteSuperheroSaga({ payload }: PayloadAction<string>) {
 
     if (response.status === 200) {
       yield put(deleteSuperheroSuccess());
+      yield put(removeServiceModal(ServiceModalName.DeleteSuperhero));
       yield put(
         getSuperheroesRequest({
           page: 1,
         })
       );
+
+      window.location.href = "/";
     }
   } catch (error) {
     if (error instanceof AxiosError) {
