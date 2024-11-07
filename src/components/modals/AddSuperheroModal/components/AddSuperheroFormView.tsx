@@ -148,6 +148,7 @@ export const AddSuperheroFormView = ({
             >
               <TrashIcon
                 sx={{
+                  backgroundColor: theme.palette.custom.dark,
                   color: theme.palette.custom.red,
                   borderRadius: "50%",
                   display: "flex",

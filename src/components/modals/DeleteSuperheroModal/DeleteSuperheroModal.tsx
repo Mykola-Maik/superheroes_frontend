@@ -7,10 +7,10 @@ import { removeServiceModal } from "@/redux/slices/serviceModalSlice/serviceModa
 import { useAppDispatch } from "@/hooks";
 import { deleteSuperheroRequest } from "@/redux/slices/superheroSlice/superheroSlice";
 import { selectServiceModalPayload } from "@/redux/selectors/serviceModalSelector";
+import { toast } from "react-toastify";
 
 const DeleteSuperheroModal = () => {
   const dispatch = useAppDispatch();
-  
 
   const payload = selectServiceModalPayload(ServiceModalName.DeleteSuperhero);
   const { superheroId } = payload || {};
@@ -20,7 +20,9 @@ const DeleteSuperheroModal = () => {
   };
 
   const handleDeleteButton = () => {
-    dispatch(deleteSuperheroRequest(superheroId));
+    const toastId = toast.loading("Waiting...");
+
+    dispatch(deleteSuperheroRequest({ superheroId, toastId }));
   };
 
   return (

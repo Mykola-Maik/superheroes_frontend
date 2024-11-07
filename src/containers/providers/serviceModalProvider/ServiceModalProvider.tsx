@@ -1,6 +1,7 @@
 import React, { Suspense, useEffect } from "react";
 import { ServiceModalName } from "@/enums";
 import { selectServiceModals } from "@/redux/selectors/serviceModalSelector";
+import { Loader } from "@/components";
 
 const AddSuperhero = React.lazy(
   () => import("@/components/modals/AddSuperheroModal/AddSuperheroModal")
@@ -31,21 +32,21 @@ const ServiceModalProvider = ({ children }: { children?: React.ReactNode }) => {
     switch (key) {
       case ServiceModalName.AddSuperhero:
         return (
-          <Suspense fallback={<div>Loading...</div>}>
+          <Suspense fallback={<Loader />}>
             <AddSuperhero />
           </Suspense>
         );
 
       case ServiceModalName.EditSuperhero:
         return (
-          <Suspense fallback={<div>Loading...</div>}>
+          <Suspense fallback={<Loader />}>
             <EditSuperhero />
           </Suspense>
         );
 
       case ServiceModalName.DeleteSuperhero:
         return (
-          <Suspense fallback={<div>Loading...</div>}>
+          <Suspense fallback={<Loader />}>
             <DeleteSuperhero />
           </Suspense>
         );

@@ -15,6 +15,7 @@ import {
 import { SuperheroFormData } from "@/types";
 import theme from "@/styles/muiTheme";
 import { AddSuperheroFormView } from "./AddSuperheroFormView";
+import { toast } from "react-toastify";
 
 type FormData = SuperheroFormData;
 
@@ -103,11 +104,21 @@ export const AddSuperheroForm = ({ superheroId }: AddSuperheroFormProps) => {
     };
 
     if (superheroId) {
+      const toastId = toast.loading("Waiting...");
+
       dispatch(
-        updateSuperheroRequest({ superheroId, superhero: formatedData })
+        updateSuperheroRequest({
+          superheroId,
+          superhero: formatedData,
+          toastId,
+        })
       );
     } else {
-      dispatch(createSuperheroRequest(formatedData));
+      const toastId = toast.loading("Waiting...");
+
+      dispatch(
+        createSuperheroRequest({ superheroData: formatedData, toastId })
+      );
     }
   };
 

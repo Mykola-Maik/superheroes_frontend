@@ -16,11 +16,11 @@ import {
   getSuperheroesSuccess,
   updateSuperheroFailure,
   updateSuperheroRequest,
-  updateSuperheroSuccess,
 } from "@/redux/slices/superheroSlice/superheroSlice";
 import { removeServiceModal } from "@/redux/slices/serviceModalSlice";
 import { ServiceModalName } from "@/enums";
 import { getSuperheroRequest } from "@/redux/slices/currentSuperheroSlice/currentSuperheroSlice";
+import { type Id, toast } from "react-toastify";
 
 function* getSuperheroesSaga({
   payload: { page },
@@ -44,18 +44,27 @@ function* getSuperheroesSaga({
 }
 
 function* createSuperheroSaga({
-  payload,
-}: PayloadAction<Omit<Superhero, "id">>) {
+  payload: { superheroData, toastId },
+}: PayloadAction<{
+  superheroData: Omit<Superhero, "id">;
+  toastId: Id;
+}>) {
   try {
     const response: AxiosResponse<Superhero> = yield call(
       HttpService.post,
       "/superheroes",
-      payload
+      superheroData
     );
 
     if (response.status === 201) {
       yield put(createSuperheroSuccess());
       yield put(removeServiceModal(ServiceModalName.AddSuperhero));
+      toast.update(toastId, {
+        render: "Superhero created!",
+        type: "success",
+        isLoading: false,
+        autoClose: 5000,
+      });
       yield put(
         getSuperheroesRequest({
           page: 1,
@@ -63,16 +72,25 @@ function* createSuperheroSaga({
       );
     }
   } catch (error) {
+    toast.update(toastId, {
+      render: "Failed to create superhero!",
+      type: "error",
+      isLoading: false,
+      autoClose: 5000,
+    });
+
     console.error(error);
     yield put(createSuperheroFailure("An unexpected error occurred."));
   }
 }
 
-function* deleteSuperheroSaga({ payload }: PayloadAction<string>) {
+function* deleteSuperheroSaga({
+  payload: { superheroId, toastId },
+}: PayloadAction<{ superheroId: string; toastId: Id }>) {
   try {
     const response: AxiosResponse = yield call(
       HttpService.delete,
-      `/superheroes/${payload}`
+      `/superheroes/${superheroId}`
     );
 
     if (response.status === 200) {
@@ -85,8 +103,22 @@ function* deleteSuperheroSaga({ payload }: PayloadAction<string>) {
       );
 
       window.location.href = "/";
+
+      toast.update(toastId, {
+        render: "Superhero deleted!",
+        type: "success",
+        isLoading: false,
+        autoClose: 5000,
+      });
     }
   } catch (error) {
+    toast.update(toastId, {
+      render: "Failed to delete superhero!",
+      type: "error",
+      isLoading: false,
+      autoClose: 5000,
+    });
+
     if (error instanceof AxiosError) {
       console.error(error.message);
       yield put(deleteSuperheroFailure(error.message));
@@ -98,8 +130,12 @@ function* deleteSuperheroSaga({ payload }: PayloadAction<string>) {
 }
 
 function* updateSuperheroSaga({
-  payload: { superheroId, superhero },
-}: PayloadAction<{ superheroId: string; superhero: Partial<Superhero> }>) {
+  payload: { superheroId, superhero, toastId },
+}: PayloadAction<{
+  superheroId: string;
+  superhero: Partial<Superhero>;
+  toastId: Id;
+}>) {
   try {
     const response: AxiosResponse<Superhero> = yield call(
       HttpService.patch,
@@ -108,8 +144,13 @@ function* updateSuperheroSaga({
     );
 
     if (response.status === 200) {
-      yield put(updateSuperheroSuccess());
       yield put(removeServiceModal(ServiceModalName.EditSuperhero));
+      toast.update(toastId, {
+        render: "Superhero updated!",
+        type: "success",
+        isLoading: false,
+        autoClose: 5000,
+      });
       yield put(
         getSuperheroesRequest({
           page: 1,
@@ -118,6 +159,13 @@ function* updateSuperheroSaga({
       yield put(getSuperheroRequest(superheroId));
     }
   } catch (error) {
+    toast.update(toastId, {
+      render: "Failed to update superhero!",
+      type: "error",
+      isLoading: false,
+      autoClose: 5000,
+    });
+
     if (error instanceof AxiosError) {
       console.error(error.message);
       yield put(updateSuperheroFailure(error.message));

@@ -1,4 +1,4 @@
-import { Card } from "@/components";
+import { Card, Loader } from "@/components";
 import { Box, Button, Pagination } from "@mui/material";
 import Grid from "@mui/material/Grid2";
 import { useEffect } from "react";
@@ -8,8 +8,7 @@ import { getSuperheroesRequest } from "@/redux/slices/superheroSlice/superheroSl
 import theme from "@/styles/muiTheme";
 import { addServiceModal } from "@/redux/slices/serviceModalSlice";
 import { ServiceModalName } from "@/enums";
-
-const itemsPerPage = 5;
+import { itemsPerPage } from "@/constants";
 
 export default function HomePage() {
   const dispatch = useAppDispatch();
@@ -17,6 +16,7 @@ export default function HomePage() {
   const superheroes = useAppSelector(
     (state) => state.superheroSlice.superheroes
   );
+  const isLoading = useAppSelector((state) => state.superheroSlice.isLoading);
   const totalCount = useAppSelector((state) => state.superheroSlice.count);
   const currentPage = Number(searchParams.get("page")) || 1;
 
@@ -30,6 +30,10 @@ export default function HomePage() {
 
     setSearchParams(query);
   }, [currentPage, setSearchParams]);
+
+  if (isLoading) {
+    return <Loader />;
+  }
 
   const createSuperheroHandler = () => {
     dispatch(
@@ -117,9 +121,29 @@ export default function HomePage() {
             count={totalPages}
             page={currentPage}
             onChange={handlePageChange}
-            variant="outlined"
             shape="rounded"
-            color="primary"
+            sx={{
+              "& .MuiPaginationItem-root": {
+                background: theme.palette.custom.yellow,
+                border: `1px solid ${theme.palette.custom.red}`,
+                color: theme.palette.custom.red,
+                transition: "all 0.3s ease",
+                "&:hover": {
+                  transition: "all 0.3s ease",
+                  background: theme.palette.custom.red,
+                  color: theme.palette.common.white,
+                },
+              },
+              "& .MuiPaginationItem-root.Mui-selected": {
+                background: theme.palette.custom.red,
+                color: theme.palette.common.white,
+                transition: "background 0.3s ease, color 0.3s ease",
+                "&:hover": {
+                  transition: "all 0.3s ease",
+                  opacity: 1,
+                },
+              },
+            }}
           />
         </Grid>
       </Grid>

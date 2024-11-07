@@ -7,12 +7,13 @@ import { ROUTES } from "@/enums";
 import App from "@/App";
 import HomePage from "@/pages/HomePage/HomePage";
 import SuperheroDetailsPage from "@/pages/SuperheroDetailsPage/SuperheroDetailsPage";
+import { Loader } from "@/components";
 
 const router = createBrowserRouter([
   {
     path: ROUTES.HOME,
     element: (
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<Loader />}>
         <App />
       </Suspense>
     ),
@@ -20,7 +21,7 @@ const router = createBrowserRouter([
       {
         path: ROUTES.HOME,
         element: (
-          <Suspense fallback={<div>Loading...</div>}>
+          <Suspense fallback={<Loader />}>
             <HomePage />
           </Suspense>
         ),
@@ -28,7 +29,7 @@ const router = createBrowserRouter([
       {
         path: ROUTES.SUPERHERO_DETAILS,
         element: (
-          <Suspense fallback={<div>Loading...</div>}>
+          <Suspense fallback={<Loader />}>
             <SuperheroDetailsPage />
           </Suspense>
         ),
