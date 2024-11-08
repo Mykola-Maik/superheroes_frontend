@@ -1,16 +1,17 @@
 import { useAppDispatch, useAppSelector } from "@/hooks";
 import { Box, Button, Grid2, Typography } from "@mui/material";
 import { useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import theme from "@/styles/muiTheme";
 import { getSuperheroRequest } from "@/redux/slices/currentSuperheroSlice/currentSuperheroSlice";
 import ImageSlider from "@/components/ImageSlider/ImageSlider";
 import { addServiceModal } from "@/redux/slices/serviceModalSlice";
-import { ServiceModalName } from "@/enums";
+import { ROUTES, ServiceModalName } from "@/enums";
 import { Loader } from "@/components";
 
 export default function SuperheroDetailsPage() {
   const { id } = useParams();
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const superhero = useAppSelector(
     (state) => state.currentSuperheroSlice.superhero
@@ -18,12 +19,19 @@ export default function SuperheroDetailsPage() {
   const isLoading = useAppSelector(
     (state) => state.currentSuperheroSlice.isLoading
   );
+  const error = useAppSelector((state) => state.currentSuperheroSlice.errors);
 
   useEffect(() => {
     if (id) {
       dispatch(getSuperheroRequest(id));
     }
   }, [id]);
+
+  useEffect(() => {
+    if (error) {
+      navigate(ROUTES.NOT_FOUND);
+    }
+  }, [error, navigate]);
 
   const handleDeleteSuperhero = () => {
     dispatch(

@@ -7,9 +7,11 @@ export const currentSuperheroSlice = createSlice({
   initialState,
   reducers: {
     getSuperheroRequest: (state, _action: PayloadAction<string>) => {
+      state.errors = "";
       state.isLoading = true;
     },
     getSuperheroSuccess: (state, action: PayloadAction<Superhero>) => {
+      state.errors = "";
       state.isLoading = false;
       state.superhero = action.payload;
     },

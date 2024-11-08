@@ -19,7 +19,7 @@ function* getCurrentSuperheroSaga({ payload }: PayloadAction<string>) {
     yield put(getSuperheroSuccess(response.data));
   } catch (error) {
     if (error instanceof AxiosError) {
-      console.error(error);
+      console.error("Axios error:", error);
       yield put(getSuperheroFailure(error.message));
     } else {
       console.error("An unknown error occurred.");
